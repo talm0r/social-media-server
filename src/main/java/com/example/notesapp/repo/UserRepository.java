@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User,Integer> {
 
     Optional<User> findByUserEmail(String email);
+    Optional<User> findByUserEmailAndUserPassword(String email, String password);
 
     @Query("SELECT p FROM User p WHERE (p.userId) = :userId AND (p.JWTtoken) = :token")
     Optional<User> findByUserIdAndJWTtoken(@Param("userId")int userId,@Param("token") String token);

@@ -18,37 +18,51 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+    String message = "Could not";
     @Autowired
     UserService userService;
     @PostMapping("signup")
     public ApiResponse add(@RequestBody SignUpDto signUpDto, HttpServletRequest request) {
-        ApiResponse response = this.userService.signUp(signUpDto);
-        if(response.getStatus() == 200) {
-            request.getSession().setAttribute("LOGGED_IN_USER",(User) response.getResult());
+        try {
+            return this.userService.signUp(signUpDto);
         }
-        return response;
+        catch (Exception e){
+            return new ApiResponse(400,message + "Add user",e.getMessage());
+        }
+
     }
     @PostMapping("login")
     public ApiResponse login(@RequestBody LoginDto loginDto, HttpServletRequest request) {
-        ApiResponse response = this.userService.login(loginDto);
-        return response;
-    }
-    @PostMapping("logout")
-    public ApiResponse logout(HttpServletRequest request) {
+        try {
+            return  this.userService.login(loginDto);
+        }
+        catch (Exception e){
+            return new ApiResponse(400,message + "login",e.getMessage());
+        }
 
-        request.getSession().invalidate();
-       return new ApiResponse(200,"Logged out successfully",null);
     }
+
 
     @GetMapping("getAllUsers")
     public ApiResponse getAllUsers() {
-        System.out.println(1);
-        return this.userService.getAllUsers();
+        try {
+            return this.userService.getAllUsers();
+        }
+        catch (Exception e){
+            return new ApiResponse(400,message + "get all users",e.getMessage());
+        }
+
     }
 
     @PutMapping("/update")
     public ApiResponse updateUser(@RequestBody UpdateUserDto updateUserDto) {
-        return this.userService.updateUser(updateUserDto);
+        try {
+            return this.userService.updateUser(updateUserDto);
+        }
+        catch (Exception e){
+            return new ApiResponse(400,message + "update user",e.getMessage());
+        }
+
     }
 
 }

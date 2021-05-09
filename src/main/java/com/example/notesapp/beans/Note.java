@@ -1,19 +1,13 @@
 package com.example.notesapp.beans;
-
-
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -24,28 +18,28 @@ public class Note {
     @Id
     private int noteId;
 
-    @NotNull
+    @Min(value =1 , message =  "Note sender id must be at least 1")
     private int noteSenderId;
 
-    @NotNull
+    @Min(value =1 , message =  "Note user id must be at least 1")
     private int noteUserId;
 
-    @NotNull
+    @NotEmpty
     private String noteTitle;
 
-    @NotNull
+    @NotEmpty
     private String noteBody;
 
 
     private Boolean noteRead = false;
 
-    @NotNull
+    @NotEmpty
     private String noteColor;
 
-    @NotNull
+
     private String noteIcon;
 
-    @NotNull
+
     private int notePriority;
 
 

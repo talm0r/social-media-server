@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface NoteRepository extends JpaRepository<Note,Integer> {
 
-    List<Note> findByNoteUserId(int userId);
     @Query(
             value = "SELECT " +
                     "note.note_id as noteId, note.note_title as noteTitle, note.note_color as noteColor, note.note_sender_id as noteSenderId, " +
